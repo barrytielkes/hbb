@@ -48,15 +48,17 @@ export default class Navigation extends React.Component {
 			<div {...styles}>
 				{pages &&
 					Object.keys(pages)
-						.filter(key => pages[key].weight > 0) //remove home button from menu
-						.sort((keyA, keyB) => pages[keyA].weight > pages[keyB].weight) //order by weight
-						.map((key, index) =>
-							<div {...itemStyleWrapper} key={key}>
-								<NavLink {...itemStyle} key={key} to={`/${key}`} activeClassName="active">
-									{pages[key].button}
-								</NavLink>
-							</div>
-						)}
+						.sort((keyA, keyB) => pages[keyA].button.weight - pages[keyB].button.weight) //order by weight
+						.map((key, index) => {
+							console.log('nav', key, pages[key]);
+							return (
+								<div {...itemStyleWrapper} key={key}>
+									<NavLink {...itemStyle} key={key} to={`/${key}`} activeClassName="active">
+										{pages[key].button.label}
+									</NavLink>
+								</div>
+							);
+						})}
 			</div>
 		);
 	}
